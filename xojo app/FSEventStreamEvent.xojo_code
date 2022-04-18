@@ -64,7 +64,7 @@ Protected Module FSEventStreamEvent
 		    
 		  next
 		  
-		  flagsAsString = flagsAsString.Left( flagsAsString.Length() - 2 )
+		  flagsAsString = flagsAsString.TrimRight( ", " )
 		  
 		  return flagsAsString
 		  

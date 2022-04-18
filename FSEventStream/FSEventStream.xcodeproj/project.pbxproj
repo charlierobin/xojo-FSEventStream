@@ -15,7 +15,7 @@
 		CB7AE6EE239AC79300E0D3BA /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PROJECT_DIR)/..";
+			dstPath = "$(PROJECT_DIR)/../dylib";
 			dstSubfolderSpec = 0;
 			files = (
 				CB7AE6EF239AC79900E0D3BA /* libFSEventStream.dylib in CopyFiles */,
@@ -85,6 +85,7 @@
 				CB7AE6DF239AC55700E0D3BA /* Frameworks */,
 				CB7AE6E0239AC55700E0D3BA /* Headers */,
 				CB7AE6EE239AC79300E0D3BA /* CopyFiles */,
+				CBE97923280D0B3F00186E84 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -127,6 +128,26 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		CBE97923280D0B3F00186E84 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "ditto -c -k --sequesterRsrc \"$PROJECT_DIR/../dylib/libFSEventStream.dylib\" \"$PROJECT_DIR/../dylib/libFSEventStream.dylib.zip\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		CB7AE6DE239AC55700E0D3BA /* Sources */ = {

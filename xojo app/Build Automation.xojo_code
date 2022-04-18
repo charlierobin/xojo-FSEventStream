@@ -11,7 +11,7 @@
 					Architecture = 0
 					Destination = 2
 					Subdirectory = 
-					FolderItem = Li4vLi4vRlNFdmVudFN0cmVhbS9EZXJpdmVkRGF0YS9GU0V2ZW50U3RyZWFtL0J1aWxkL1Byb2R1Y3RzL0RlYnVnL2xpYkZTRXZlbnRTdHJlYW0uZHlsaWI=
+					FolderItem = Li4vLi4vZHlsaWIvbGliRlNFdmVudFN0cmVhbS5keWxpYg==
 				End
 			End
 			Begin BuildStepList Windows

@@ -344,7 +344,7 @@ End
 	#tag EndProperty
 
 
-	#tag Constant, Name = dylib, Type = String, Dynamic = False, Default = \"@executable_path/../Frameworks/libWatcher.dylib", Scope = Private
+	#tag Constant, Name = dylib, Type = String, Dynamic = False, Default = \"@executable_path/../Frameworks/libFSEventStream.dylib", Scope = Private
 	#tag EndConstant
 
 

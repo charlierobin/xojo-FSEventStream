@@ -3,7 +3,7 @@ Protected Class App
 Inherits Application
 	#tag Event
 		Sub Open()
-		  var window as WindowMain = new WindowMain( "/Users/charlie/Desktop/project1" )
+		  var window as WindowMain = new WindowMain()
 		  
 		  window.Show()
 		  

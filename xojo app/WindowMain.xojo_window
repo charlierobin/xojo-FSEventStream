@@ -269,19 +269,6 @@ End
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
-		Sub Constructor(ParamArray paths() as String)
-		  for each path as String in paths
-		    
-		    self.ListboxPaths.AddRow( path )
-		    
-		  next
-		  
-		  super.Constructor()
-		  
-		End Sub
-	#tag EndMethod
-
 	#tag Method, Flags = &h21
 		Private Sub updateButtons()
 		  if self.ListboxPaths.SelectedRowIndex = -1 then

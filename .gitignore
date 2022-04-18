@@ -1,4 +1,8 @@
-# Xojo (formerly REALbasic and Real Studio)
+.DS_Store
+
+DerivedData*
+
+dylib/libFSEventStream.dylib
 
 Builds*
 *.debug
@@ -9,3 +13,4 @@ Debug*/Debug*\ Libs
 *.rbuistate
 *.xojo_uistate
 *.obsolete*
+

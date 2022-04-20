@@ -5,7 +5,7 @@ Inherits Application
 		Sub Close()
 		  try
 		    
-		    FSEventStreamEvent.stop()
+		    FSEventStream.stop()
 		    
 		  catch e as FunctionNotFoundException
 		    
@@ -19,7 +19,7 @@ Inherits Application
 
 	#tag Event
 		Sub Open()
-		  me.updateFSEventStreamEvents()
+		  me.updateFSEventStreams()
 		  
 		  
 		End Sub
@@ -32,33 +32,33 @@ Inherits Application
 		  
 		  if f.Name.Left( 1 ) = "." then return
 		  
-		  var flags() as FSEventStreamEvent.Flag = FSEventStreamEvent.getFlags( flagsUInt )
+		  var flags() as FSEventStream.Flag = FSEventStream.getFlags( flagsUInt )
 		  
-		  WindowMain.TextAreaLog.AddText( "ID: " + str( id ) + " Path: " + path + " (Flags: " + FSEventStreamEvent.ToString( flags ) + ")" + EndOfLine )
+		  WindowMain.TextAreaLog.AddText( "ID: " + str( id ) + " Path: " + path + " (Flags: " + FSEventStream.ToString( flags ) + ")" + EndOfLine )
 		  
 		  
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub updateFSEventStreamEvents()
+		Sub updateFSEventStreams()
 		  try
 		    
-		    FSEventStreamEvent.stop()
+		    FSEventStream.stop()
 		    
-		    FSEventStreamEvent.clearPaths()
+		    FSEventStream.clearPaths()
 		    
 		    if WindowMain.ListboxPaths.RowCount > 0 then
 		      
-		      FSEventStreamEvent.installCallback( AddressOf callback_Handler )
+		      FSEventStream.installCallback( AddressOf callback_Handler )
 		      
 		      for i as Integer = 0 to WindowMain.ListboxPaths.LastRowIndex
 		        
-		        FSEventStreamEvent.addPath( WindowMain.ListboxPaths.CellValueAt( i, 0 ) )
+		        FSEventStream.addPath( WindowMain.ListboxPaths.CellValueAt( i, 0 ) )
 		        
 		      next
 		      
-		      FSEventStreamEvent.run()
+		      FSEventStream.run()
 		      
 		    end if
 		    

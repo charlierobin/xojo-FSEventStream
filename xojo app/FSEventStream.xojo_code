@@ -1,5 +1,5 @@
 #tag Module
-Protected Module FSEventStreamEvent
+Protected Module FSEventStream
 	#tag ExternalMethod, Flags = &h1
 		Protected Declare Sub addPath Lib dylib (path as CFStringRef)
 	#tag EndExternalMethod
@@ -78,9 +78,9 @@ Protected Module FSEventStreamEvent
 		Protected Function ToString(flags() as Flag) As String
 		  var flagsAsString as String = ""
 		  
-		  for each flag as FSEventStreamEvent.Flag in flags
+		  for each flag as FSEventStream.Flag in flags
 		    
-		    flagsAsString = flagsAsString + FSEventStreamEvent.ToString( flag ) + ", "
+		    flagsAsString = flagsAsString + FSEventStream.ToString( flag ) + ", "
 		    
 		  next
 		  
@@ -211,7 +211,7 @@ Protected Module FSEventStreamEvent
 		
 		IDs are uint64_t, flagsUInt unsigned long
 		
-		https://developer.apple.com/documentation/coreservices/1455361-fseventstreameventflags
+		https://developer.apple.com/documentation/coreservices/1455361-FSEventStreamflags
 		
 		
 		

@@ -275,7 +275,7 @@ End
 		    
 		    self.ListboxPaths.SelectedRowIndex = self.ListboxPaths.LastAddedRowIndex
 		    
-		    App.updateFSEventStreamEvents()
+		    App.updateFSEventStreams()
 		    
 		  end if
 		  
@@ -292,7 +292,7 @@ End
 		    
 		    self.ListboxPaths.SelectedRowIndex = -1
 		    
-		    App.updateFSEventStreamEvents()
+		    App.updateFSEventStreams()
 		    
 		  end if
 		  

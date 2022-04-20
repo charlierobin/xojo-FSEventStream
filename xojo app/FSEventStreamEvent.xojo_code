@@ -1,5 +1,13 @@
 #tag Module
 Protected Module FSEventStreamEvent
+	#tag ExternalMethod, Flags = &h1
+		Protected Declare Sub addPath Lib dylib (path as CFStringRef)
+	#tag EndExternalMethod
+
+	#tag ExternalMethod, Flags = &h1
+		Protected Declare Sub clearPaths Lib dylib ()
+	#tag EndExternalMethod
+
 	#tag Method, Flags = &h1
 		Protected Function getFlags(flagsUInt as UInt32) As Flag()
 		  var flags() as Flag
@@ -53,6 +61,18 @@ Protected Module FSEventStreamEvent
 		  
 		End Function
 	#tag EndMethod
+
+	#tag ExternalMethod, Flags = &h1
+		Protected Declare Sub installCallback Lib dylib (handler as Ptr)
+	#tag EndExternalMethod
+
+	#tag ExternalMethod, Flags = &h1
+		Protected Declare Sub run Lib dylib ()
+	#tag EndExternalMethod
+
+	#tag ExternalMethod, Flags = &h1
+		Protected Declare Sub stop Lib dylib ()
+	#tag EndExternalMethod
 
 	#tag Method, Flags = &h1
 		Protected Function ToString(flags() as Flag) As String
@@ -196,6 +216,10 @@ Protected Module FSEventStreamEvent
 		
 		
 	#tag EndNote
+
+
+	#tag Constant, Name = dylib, Type = String, Dynamic = False, Default = \"@executable_path/../Frameworks/libFSEventStream.dylib", Scope = Private
+	#tag EndConstant
 
 
 	#tag Enum, Name = Flag, Type = Integer, Flags = &h1

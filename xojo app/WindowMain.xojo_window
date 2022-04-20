@@ -11,7 +11,7 @@ Begin Window WindowMain
    HasMaximizeButton=   True
    HasMinimizeButton=   True
    Height          =   452
-   ImplicitInstance=   False
+   ImplicitInstance=   True
    MacProcID       =   0
    MaximumHeight   =   32000
    MaximumWidth    =   32000
@@ -63,7 +63,7 @@ Begin Window WindowMain
       LockTop         =   True
       RequiresSelection=   False
       RowSelectionType=   0
-      Scope           =   2
+      Scope           =   0
       TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
@@ -72,15 +72,15 @@ Begin Window WindowMain
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   616
+      Width           =   545
       _ScrollOffset   =   0
       _ScrollWidth    =   -1
    End
-   Begin PushButton PushButtonAdd
+   Begin PushButton PushButtonAddFolder
       AllowAutoDeactivate=   True
       Bold            =   False
       Cancel          =   False
-      Caption         =   "Add"
+      Caption         =   "Add Folder…"
       Default         =   False
       Enabled         =   True
       FontName        =   "System"
@@ -90,7 +90,7 @@ Begin Window WindowMain
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   648
+      Left            =   577
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
@@ -106,13 +106,13 @@ Begin Window WindowMain
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   80
+      Width           =   151
    End
-   Begin PushButton PushButtonDelete
+   Begin PushButton PushButtonRemoveFolder
       AllowAutoDeactivate=   True
       Bold            =   False
       Cancel          =   False
-      Caption         =   "Delete"
+      Caption         =   "Remove Folder"
       Default         =   False
       Enabled         =   True
       FontName        =   "System"
@@ -122,7 +122,7 @@ Begin Window WindowMain
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   648
+      Left            =   577
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
@@ -138,7 +138,7 @@ Begin Window WindowMain
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   80
+      Width           =   151
    End
    Begin TextArea TextAreaLog
       AllowAutoDeactivate=   True
@@ -173,7 +173,7 @@ Begin Window WindowMain
       MaximumCharactersAllowed=   0
       Multiline       =   True
       ReadOnly        =   True
-      Scope           =   2
+      Scope           =   0
       TabIndex        =   5
       TabPanelIndex   =   0
       TabStop         =   True
@@ -187,13 +187,13 @@ Begin Window WindowMain
       UnicodeMode     =   0
       ValidationMask  =   ""
       Visible         =   True
-      Width           =   616
+      Width           =   545
    End
-   Begin PushButton PushButtonClear
+   Begin PushButton PushButtonClearLog
       AllowAutoDeactivate=   True
       Bold            =   False
       Cancel          =   False
-      Caption         =   "Clear"
+      Caption         =   "Clear Log"
       Default         =   False
       Enabled         =   True
       FontName        =   "System"
@@ -203,7 +203,7 @@ Begin Window WindowMain
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   648
+      Left            =   577
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -219,120 +219,26 @@ Begin Window WindowMain
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   80
+      Width           =   151
    End
 End
 #tag EndWindow
 
 #tag WindowCode
-	#tag Event
-		Sub Close()
-		  try
-		    
-		    declare sub stop lib dylib ()
-		    
-		    stop()
-		    
-		  catch e as FunctionNotFoundException
-		    
-		    System.DebugLog( e.Message )
-		    
-		  end try
-		  
-		End Sub
-	#tag EndEvent
-
-	#tag Event
-		Sub Open()
-		  WindowMain.logControl = self.TextAreaLog
-		  
-		  self.updateWatcher()
-		  
-		  
-		End Sub
-	#tag EndEvent
-
-
-	#tag Method, Flags = &h21
-		Private Shared Sub callback_Handler(id as UInt64, path as CString, flagsUInt as UInt32)
-		  var f as FolderItem = new FolderItem( path, FolderItem.PathModes.Native )
-		  
-		  if f.Name.Left( 1 ) = "." then return
-		  
-		  var flags() as FSEventStreamEvent.Flag = FSEventStreamEvent.getFlags( flagsUInt )
-		  
-		  WindowMain.logControl.AddText( "ID: " + str( id ) + " Path: " + path + " (Flags: " + FSEventStreamEvent.ToString( flags ) + ")" + EndOfLine )
-		  
-		  WindowMain.logControl.VerticalScrollPosition = 32000
-		  
-		  
-		End Sub
-	#tag EndMethod
-
 	#tag Method, Flags = &h21
 		Private Sub updateButtons()
 		  if self.ListboxPaths.SelectedRowIndex = -1 then
 		    
-		    self.PushButtonDelete.Enabled = false
+		    self.PushButtonRemoveFolder.Enabled = false
 		    
 		  else
 		    
-		    self.PushButtonDelete.Enabled = true
+		    self.PushButtonRemoveFolder.Enabled = true
 		    
 		  end if
 		  
 		End Sub
 	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Sub updateWatcher()
-		  try
-		    
-		    declare sub stop lib dylib ()
-		    
-		    stop()
-		    
-		    declare sub clearPaths lib dylib ()
-		    
-		    clearPaths()
-		    
-		    if self.ListboxPaths.RowCount > 0 then
-		      
-		      declare sub installCallback lib dylib ( pointer as Ptr )
-		      
-		      installCallback( AddressOf callback_Handler )
-		      
-		      declare sub addPath lib dylib ( path as CFStringRef )
-		      
-		      for i as Integer = 0 to self.ListboxPaths.LastRowIndex
-		        
-		        addPath( self.ListboxPaths.CellValueAt( i, 0 ) )
-		        
-		      next
-		      
-		      declare sub run lib dylib ()
-		      
-		      run()
-		      
-		    end if
-		    
-		  catch e as FunctionNotFoundException
-		    
-		    System.DebugLog( e.Message )
-		    
-		  end try
-		  
-		End Sub
-	#tag EndMethod
-
-
-	#tag Property, Flags = &h1
-		Protected Shared logControl As TextArea
-	#tag EndProperty
-
-
-	#tag Constant, Name = dylib, Type = String, Dynamic = False, Default = \"@executable_path/../Frameworks/libFSEventStream.dylib", Scope = Private
-	#tag EndConstant
 
 
 #tag EndWindowCode
@@ -351,7 +257,7 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events PushButtonAdd
+#tag Events PushButtonAddFolder
 	#tag Event
 		Sub Action()
 		  var dlg as SelectFolderDialog = new SelectFolderDialog()
@@ -369,7 +275,7 @@ End
 		    
 		    self.ListboxPaths.SelectedRowIndex = self.ListboxPaths.LastAddedRowIndex
 		    
-		    self.updateWatcher()
+		    App.updateFSEventStreamEvents()
 		    
 		  end if
 		  
@@ -377,7 +283,7 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events PushButtonDelete
+#tag Events PushButtonRemoveFolder
 	#tag Event
 		Sub Action()
 		  if self.ListboxPaths.SelectedRowIndex > -1 then
@@ -386,7 +292,7 @@ End
 		    
 		    self.ListboxPaths.SelectedRowIndex = -1
 		    
-		    self.updateWatcher()
+		    App.updateFSEventStreamEvents()
 		    
 		  end if
 		  
@@ -394,7 +300,7 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events PushButtonClear
+#tag Events PushButtonClearLog
 	#tag Event
 		Sub Action()
 		  self.TextAreaLog.Value = ""
